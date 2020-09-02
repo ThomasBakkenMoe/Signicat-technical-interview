@@ -44,17 +44,22 @@ public class ProblemB {
             String aString;
             String bString;
 
+            System.out.println(stringTokenizer.toString());
+
             for (int i = tokens.size() - 1; i >= 0; i--) {
+
+                System.out.println(tokens.get(i));
 
                 switch (tokens.get(i)){
                     case "+":
+                        System.out.println("+ operator!");
                         aString = stack.pop();
                         bString = stack.pop();
 
                         if (isNumeric(aString) && isNumeric(bString)){
 
-                            int aInteger = Integer.getInteger(aString);
-                            int bInteger = Integer.getInteger(bString);
+                            int aInteger = Integer.parseInt(aString);
+                            int bInteger = Integer.parseInt(bString);
 
                             int result = aInteger + bInteger;
 
@@ -73,8 +78,8 @@ public class ProblemB {
 
                         if (isNumeric(aString) && isNumeric(bString)){
 
-                            int aInteger = Integer.getInteger(aString);
-                            int bInteger = Integer.getInteger(bString);
+                            int aInteger = Integer.parseInt(aString);
+                            int bInteger = Integer.parseInt(bString);
 
                             int result = aInteger - bInteger;
 
@@ -93,8 +98,8 @@ public class ProblemB {
 
                         if (isNumeric(aString) && isNumeric(bString)){
 
-                            int aInteger = Integer.getInteger(aString);
-                            int bInteger = Integer.getInteger(bString);
+                            int aInteger = Integer.parseInt(aString);
+                            int bInteger = Integer.parseInt(bString);
 
                             int result = aInteger * bInteger;
 
@@ -114,7 +119,7 @@ public class ProblemB {
                 }
             }
 
-            StringBuilder outputString = new StringBuilder("Case " + caseNr);
+            StringBuilder outputString = new StringBuilder("Case " + caseNr + ":");
 
             while(!stack.isEmpty()){
                 outputString.append(" ").append(stack.pop());
