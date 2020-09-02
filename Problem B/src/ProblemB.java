@@ -31,7 +31,6 @@ public class ProblemB {
         //Main loop
         while (scanner.hasNext()){
             String input = scanner.nextLine();
-            System.out.println(input);
             stringTokenizer = new StringTokenizer(input, separationDelim);
 
             tokens = new ArrayList<>();
@@ -44,15 +43,11 @@ public class ProblemB {
             String aString;
             String bString;
 
-            System.out.println(stringTokenizer.toString());
 
             for (int i = tokens.size() - 1; i >= 0; i--) {
 
-                System.out.println(tokens.get(i));
-
                 switch (tokens.get(i)){
                     case "+":
-                        System.out.println("+ operator!");
                         aString = stack.pop();
                         bString = stack.pop();
 
