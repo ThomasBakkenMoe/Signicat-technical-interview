@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.Scanner;
 
 public class ProblemC {
@@ -36,17 +37,22 @@ public class ProblemC {
         }
 
         for (int currentDay = 0; currentDay <= lastStayDay; currentDay++) {
+            ListIterator<Request> iterator = requests.listIterator();
 
-            for (Request request: requests) {
-                if (request.isAccepted() && request.to == currentDay){
+            while (iterator.hasNext()) {
+                Request currentRequest = iterator.next();
+                if (currentRequest.isAccepted() && currentRequest.to == currentDay){
                     currentOccupancy--;
                 }
 
-                if (request.isNew() && (currentOccupancy < numbOfBeds) && (request.from == currentDay)){
-                    request.setNew(false);
-                    request.setAccepted(true);
+                if (currentRequest.isNew() && (currentOccupancy < numbOfBeds) && (currentRequest.from == currentDay)){
+                    currentRequest.setNew(false);
+                    currentRequest.setAccepted(true);
                     currentOccupancy++;
                     totalKittenOccupancy++;
+                }
+                if (currentRequest.from < currentDay && !currentRequest.isAccepted()){
+                    iterator.remove();
                 }
             }
 
