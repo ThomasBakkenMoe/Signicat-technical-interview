@@ -8,7 +8,7 @@ public class ProblemC {
 
         Scanner scanner = new Scanner(System.in);
 
-        int numbOfKittens = scanner.nextInt();
+        scanner.nextInt(); //Number of kittens is never used, this command is to skip that integer.
         int numbOfBeds = scanner.nextInt();
 
 
@@ -36,14 +36,17 @@ public class ProblemC {
             }
         }
 
+        ListIterator<Request> iterator;
+
         for (int currentDay = 0; currentDay <= lastStayDay; currentDay++) {
-            ListIterator<Request> iterator = requests.listIterator();
+            iterator = requests.listIterator();
 
             while (iterator.hasNext()) {
                 Request currentRequest = iterator.next();
                 if (currentRequest.isAccepted() && currentRequest.to == currentDay){
                     currentOccupancy--;
                     iterator.remove();
+                    //System.out.println("Removing completed request");
                 }
 
                 if (currentRequest.isNew() && (currentOccupancy < numbOfBeds) && (currentRequest.from == currentDay)){
@@ -53,6 +56,7 @@ public class ProblemC {
                     totalKittenOccupancy++;
                 }
                 if (currentRequest.from < currentDay && !currentRequest.isAccepted()){
+                    //System.out.println("Removing unaccepted request");
                     iterator.remove();
                 }
             }
