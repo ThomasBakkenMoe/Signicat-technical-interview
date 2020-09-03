@@ -9,25 +9,24 @@ public class ProblemC {
 
         int numbOfKittens = scanner.nextInt();
         int numbOfBeds = scanner.nextInt();
-        int maxKittenOccupancy = 0;
+
 
         //System.out.println("Kittens: " + numbOfKittens);
         //System.out.println("Beds: " + numbOfBeds);
 
         ArrayList<Request> requests = new ArrayList<>();
 
-        int tempFrom;
-        int tempTo;
-
         while (scanner.hasNext()){
-            tempFrom = scanner.nextInt();
-            tempTo = scanner.nextInt();
+            int tempFrom = scanner.nextInt();
+            int tempTo = scanner.nextInt();
             requests.add(new Request(tempFrom, tempTo));
         }
 
         scanner.close();
 
         int lastStayDay = 0;
+        int currentOccupancy = 0;
+        int totalKittenOccupancy = 0;
 
         for (Request request: requests) {
 
@@ -36,31 +35,25 @@ public class ProblemC {
             }
         }
 
-        int[] occupancy = new int[lastStayDay + 1];
+        for (int currentDay = 0; currentDay <= lastStayDay; currentDay++) {
 
-        boolean bookingAvailable = true;
-        for (Request request: requests) {
-
-            for (int i = request.from; i < request.to; i++) {
-                if (occupancy[i] >= numbOfBeds){
-                    bookingAvailable = false;
-                    break;
+            for (Request request: requests) {
+                if (request.isAccepted() && request.to == currentDay){
+                    currentOccupancy--;
                 }
 
-            }
-            if (bookingAvailable){
-                for (int i = request.from; i < request.to; i++) {
-                    occupancy[i] += 1;
+                if (request.isNew() && (currentOccupancy < numbOfBeds) && (request.from == currentDay)){
+                    request.setNew(false);
+                    request.setAccepted(true);
+                    currentOccupancy++;
+                    totalKittenOccupancy++;
                 }
-
-                maxKittenOccupancy++;
-
             }
 
-            bookingAvailable = true;
-
+            //System.out.println("Current day: " + currentDay + ". Occupancy: " + currentOccupancy);
         }
-        System.out.println(maxKittenOccupancy);
+
+        System.out.println(totalKittenOccupancy);
     }
 
     /**
@@ -70,6 +63,8 @@ public class ProblemC {
 
         private int from;
         private int to;
+        private boolean accepted = false;
+        private boolean isNew = true;
 
         Request(int from, int to){
             this.from = from;
@@ -90,6 +85,22 @@ public class ProblemC {
 
         public void setTo(int to) {
             this.to = to;
+        }
+
+        public boolean isAccepted() {
+            return accepted;
+        }
+
+        public void setAccepted(boolean accepted) {
+            this.accepted = accepted;
+        }
+
+        public boolean isNew() {
+            return isNew;
+        }
+
+        public void setNew(boolean aNew) {
+            isNew = aNew;
         }
     }
 }
