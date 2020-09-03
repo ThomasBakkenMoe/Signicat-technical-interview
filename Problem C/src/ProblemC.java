@@ -11,8 +11,8 @@ public class ProblemC {
         int numbOfBeds = scanner.nextInt();
         int maxKittenOccupancy = 0;
 
-        System.out.println("Kittens: " + numbOfKittens);
-        System.out.println("Beds: " + numbOfBeds);
+        //System.out.println("Kittens: " + numbOfKittens);
+        //System.out.println("Beds: " + numbOfBeds);
 
         ArrayList<Request> requests = new ArrayList<>();
 
@@ -24,6 +24,8 @@ public class ProblemC {
             tempTo = scanner.nextInt();
             requests.add(new Request(tempFrom, tempTo));
         }
+
+        scanner.close();
 
         int lastStayDay = 0;
 
@@ -39,7 +41,7 @@ public class ProblemC {
         boolean bookingAvailable = true;
         for (Request request: requests) {
 
-            for (int i = request.from; i <= request.to; i++) {
+            for (int i = request.from; i < request.to; i++) {
                 if (occupancy[i] >= numbOfBeds){
                     bookingAvailable = false;
                     break;
@@ -47,7 +49,7 @@ public class ProblemC {
 
             }
             if (bookingAvailable){
-                for (int i = request.from; i <= request.to; i++) {
+                for (int i = request.from; i < request.to; i++) {
                     occupancy[i] += 1;
                 }
 
@@ -58,7 +60,6 @@ public class ProblemC {
             bookingAvailable = true;
 
         }
-
         System.out.println(maxKittenOccupancy);
     }
 
