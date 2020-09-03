@@ -43,6 +43,7 @@ public class ProblemC {
                 Request currentRequest = iterator.next();
                 if (currentRequest.isAccepted() && currentRequest.to == currentDay){
                     currentOccupancy--;
+                    iterator.remove();
                 }
 
                 if (currentRequest.isNew() && (currentOccupancy < numbOfBeds) && (currentRequest.from == currentDay)){
